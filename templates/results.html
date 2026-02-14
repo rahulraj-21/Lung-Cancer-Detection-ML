@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Results{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card card-custom">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Analysis Results</h3>
+                    
+                    <!-- Original CT Scan -->
+                    <div class="text-center mb-4">
+                        <h5>Original CT Scan</h5>
+                        <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" 
+                             alt="CT Scan" class="img-fluid rounded explanation-image" style="max-height: 300px;">
+                    </div>
+                    
+                    <!-- Prediction Result -->
+                    <div class="result-card text-center">
+                        <h4>AI Prediction</h4>
+                        {% if prediction == "Normal cases" %}
+                        <span class="badge badge-normal prediction-badge">NORMAL</span>
+                        <div class="alert alert-success mt-3">
+                            <h6><i class="fas fa-check-circle me-2"></i>Normal Case Detected</h6>
+                            <p class="mb-0">The AI model has not identified any concerning patterns indicative of lung cancer in this CT scan.</p>
+                        </div>
+                        {% elif prediction == "Bengin cases" %}
+                        <span class="badge badge-benign prediction-badge">BENIGN</span>
+                        <div class="alert alert-warning mt-3">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Benign Abnormality Detected</h6>
+                            <p class="mb-0">The AI has identified non-cancerous abnormalities that may require monitoring but are not immediately concerning.</p>
+                        </div>
+                        {% else %}
+                        <span class="badge badge-malignant prediction-badge">MALIGNANT</span>
+                        <div class="alert alert-danger mt-3">
+                            <h6><i class="fas fa-exclamation-circle me-2"></i>Malignant Case Detected</h6>
+                            <p class="mb-0">The AI has identified patterns consistent with potential lung cancer. Please consult with a healthcare professional immediately.</p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="mt-4">
+                            <h5>Confidence Level: {{ "%.2f"|format(confidence * 100) }}%</h5>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar" id="confidenceMeter" 
+                                     data-confidence="{{ confidence }}" 
+                                     style="width: 0%; transition: width 2s ease-in-out;">
+                                    {{ "%.2f"|format(confidence * 100) }}%
+                                </div>
+                            </div>
+                            <small class="text-muted">The confidence score represents how certain the AI model is about this prediction.</small>
+                        </div>
+                    </div>
+                    
+                    {% if show_explanations %}
+                    <!-- AI Explanations Section -->
+                    <div class="mt-5">
+                        <h4 class="text-center mb-4">AI Explanations & Theoretical Background</h4>
+                        
+                        <!-- Theoretical Explanation -->
+                        <div class="card card-custom mb-4">
+                            <div class="card-body">
+                                <h5><i class="fas fa-graduation-cap me-2"></i>Theoretical Background</h5>
+                                <p>
+                                    The AI model uses Explainable AI (XAI) techniques to provide transparency in its decision-making process. 
+                                    These visualizations help medical professionals understand which regions of the CT scan influenced the prediction.
+                                </p>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <h6>Grad-CAM (Gradient-weighted Class Activation Mapping)</h6>
+                                        <ul>
+                                            <li>Uses gradients flowing into the final convolutional layer</li>
+                                            <li>Highlights important regions for prediction</li>
+                                            <li>Red areas indicate highest influence</li>
+                                            <li>Based on class-specific gradient information</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>LIME (Local Interpretable Model-agnostic Explanations)</h6>
+                                        <ul>
+                                            <li>Creates local surrogate models</li>
+                                            <li>Perturbs input and observes changes</li>
+                                            <li>Green areas support the prediction</li>
+                                            <li>Model-agnostic approach</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Visual Explanations -->
+                        <div class="row">
+                            {% if gradcam_filename %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card card-custom h-100">
+                                    <div class="card-body text-center">
+                                        <h5>Grad-CAM Heatmap</h5>
+                                        <img src="{{ url_for('static', filename='uploads/' + gradcam_filename) }}" 
+                                             alt="Grad-CAM Explanation" class="img-fluid rounded explanation-image">
+                                        <div class="mt-3">
+                                            <h6>Interpretation Guide:</h6>
+                                            <div class="d-flex justify-content-around">
+                                                <div class="text-center">
+                                                    <div style="width: 20px; height: 20px; background: #ff0000; display: inline-block;"></div>
+                                                    <div><small>High Influence</small></div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div style="width: 20px; height: 20px; background: #ffff00; display: inline-block;"></div>
+                                                    <div><small>Medium Influence</small></div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div style="width: 20px; height: 20px; background: #0000ff; display: inline-block;"></div>
+                                                    <div><small>Low Influence</small></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-2"><small>The heatmap shows regions that most influenced the AI's decision. Red areas had the strongest impact.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if lime_filename %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card card-custom h-100">
+                                    <div class="card-body text-center">
+                                        <h5>LIME Explanation</h5>
+                                        <img src="{{ url_for('static', filename='uploads/' + lime_filename) }}" 
+                                             alt="LIME Explanation" class="img-fluid rounded explanation-image">
+                                        <div class="mt-3">
+                                            <h6>Interpretation Guide:</h6>
+                                            <div class="d-flex justify-content-around">
+                                                <div class="text-center">
+                                                    <div style="width: 20px; height: 20px; background: #00ff00; border: 1px solid white; display: inline-block;"></div>
+                                                    <div><small>Supporting Features</small></div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <div style="width: 20px; height: 20px; background: transparent; border: 1px solid white; display: inline-block;"></div>
+                                                    <div><small>Original Image</small></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="mt-2"><small>Green highlighted areas represent features that support the AI's prediction decision.</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Clinical Implications -->
+                        <div class="card card-custom mt-4">
+                            <div class="card-body">
+                                <h5><i class="fas fa-stethoscope me-2"></i>Clinical Implications</h5>
+                                {% if class_id == 0 %}
+                                <div class="alert alert-info">
+                                    <h6>Benign Case - Recommended Actions:</h6>
+                                    <ul>
+                                        <li>Schedule follow-up imaging in 3-6 months</li>
+                                        <li>Monitor for any changes in size or characteristics</li>
+                                        <li>Consider consultation with pulmonologist</li>
+                                        <li>No immediate intervention required</li>
+                                    </ul>
+                                </div>
+                                {% elif class_id == 1 %}
+                                <div class="alert alert-warning">
+                                    <h6>Malignant Case - Urgent Actions Required:</h6>
+                                    <ul>
+                                        <li>Immediate consultation with oncologist</li>
+                                        <li>Consider biopsy for confirmation</li>
+                                        <li>Comprehensive staging evaluation</li>
+                                        <li>Multidisciplinary team review</li>
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
+                            <h6><i class="fas fa-info-circle me-2"></i>Important Medical Disclaimer</h6>
+                            <p class="mb-0">
+                                These AI explanations are provided to assist healthcare professionals in understanding the model's decision-making process. 
+                                They should be used as supplementary information and not as a replacement for professional medical diagnosis, 
+                                clinical judgment, or comprehensive patient evaluation. Final diagnosis and treatment decisions must be made 
+                                by qualified medical practitioners.
+                            </p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <!-- Normal Case Message -->
+                    <div class="alert alert-success mt-4 text-center">
+                        <h5><i class="fas fa-check-circle me-2"></i>No Further AI Explanations Required</h5>
+                        <p class="mb-0">
+                            Since this case was classified as normal, no additional AI explanations are provided. 
+                            The AI model did not identify any features requiring detailed explanation. 
+                            Continue with regular screening as recommended by your healthcare provider.
+                        </p>
+                    </div>
+                    
+                    <!-- Normal Case Information -->
+                    <div class="card card-custom mt-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-heart me-2"></i>Healthy Lung Characteristics</h5>
+                            <p>The AI model has confirmed normal lung tissue patterns including:</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li>Clear lung fields without opacities</li>
+                                        <li>Normal bronchovascular markings</li>
+                                        <li>Absence of nodules or masses</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li>Normal mediastinal contours</li>
+                                        <li>Clear costophrenic angles</li>
+                                        <li>No pleural abnormalities</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Action Buttons -->
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('upload') }}" class="btn btn-custom me-2">
+                            <i class="fas fa-upload me-2"></i>Upload Another Scan
+                        </a>
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light me-2">
+                            <i class="fas fa-tachometer-alt me-2"></i>Back to Dashboard
+                        </a>
+                        <a href="{{ url_for('history') }}" class="btn btn-outline-light">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

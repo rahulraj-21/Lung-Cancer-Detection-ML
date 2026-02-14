@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">Dashboard <i class="fas fa-tachometer-alt ms-2"></i></h2>
+    
+    <div class="dashboard-stats">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="stat-number">{{ predictions|length }}</span>
+                    <span class="stat-label">Total Scans</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="stat-number">
+                        {{ predictions|selectattr("prediction", "equalto", "Normal cases")|list|length }}
+                    </span>
+                    <span class="stat-label">Normal Cases</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="stat-number">
+                        {{ predictions|selectattr("prediction", "equalto", "Bengin cases")|list|length }}
+                    </span>
+                    <span class="stat-label">Benign Cases</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <span class="stat-number">
+                        {{ predictions|selectattr("prediction", "equalto", "Malignant cases")|list|length }}
+                    </span>
+                    <span class="stat-label">Malignant Cases</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Scans</h5>
+                    {% if predictions %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Prediction</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pred in predictions %}
+                                <tr>
+                                    <td>{{ pred.created_at[:16] }}</td>
+                                    <td>
+                                        {% if pred.prediction == "Normal cases" %}
+                                        <span class="badge badge-normal">Normal</span>
+                                        {% elif pred.prediction == "Bengin cases" %}
+                                        <span class="badge badge-benign">Benign</span>
+                                        {% else %}
+                                        <span class="badge badge-malignant">Malignant</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">{{ "%.2f"|format(pred.confidence * 100) }}%</span>
+                                            <div class="progress flex-grow-1" style="width: 100px;">
+                                                <div class="progress-bar" style="width: {{ pred.confidence * 100 }}%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <p class="text-center">No scans yet. <a href="{{ url_for('upload') }}">Upload your first CT scan!</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('upload') }}" class="btn btn-custom">
+                            <i class="fas fa-upload me-2"></i>Upload New Scan
+                        </a>
+                        <a href="{{ url_for('history') }}" class="btn btn-outline-light">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <div class="card card-custom mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Prediction Distribution</h5>
+                    <canvas id="predictionChart" width="400" height="400"></canvas>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+{% endblock %}

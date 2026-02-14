@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Upload CT Scan{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Fullscreen overlay */
+    #loadingOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.65);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        flex-direction: column;
+        color: white;
+        text-align: center;
+    }
+
+    /* Spinner */
+    .spinner {
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+    <h4>Analyzing CT Scan...</h4>
+    <p>Please wait a few seconds</p>
+</div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-custom">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Upload CT Scan for Analysis</h3>
+                    
+                    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+                        <input type="file" id="fileInput" name="file" accept=".png,.jpg,.jpeg" hidden required>
+                        
+                        <div class="upload-area mb-4" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <h4>Drag & Drop or Click to Upload</h4>
+                            <p class="text-muted">Supported formats: PNG, JPG, JPEG</p>
+                            <p class="text-muted">Max file size: 16MB</p>
+                            <p id="fileName" class="mt-2">No file chosen</p>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-custom btn-lg">
+                                <i class="fas fa-search me-2"></i>Analyze CT Scan
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4">
+                        <h5>What happens next?</h5>
+                        <ul>
+                            <li>AI analyzes your CT scan for lung cancer indicators</li>
+                            <li>Get instant results with confidence scores</li>
+                            <li>For abnormal cases, view AI explanations highlighting areas of concern</li>
+                            <li>Results are saved to your personal dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show loading overlay on form submission
+    const form = document.getElementById("uploadForm");
+    form.addEventListener("submit", function() {
+        document.getElementById("loadingOverlay").style.display = "flex";
+    });
+
+    // Make upload area clickable
+    const uploadArea = document.getElementById("uploadArea");
+    const fileInput = document.getElementById("fileInput");
+    const fileNameDisplay = document.getElementById("fileName");
+
+    uploadArea.addEventListener("click", () => fileInput.click());
+
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = fileInput.files[0].name;
+        } else {
+            fileNameDisplay.textContent = "No file chosen";
+        }
+    });
+</script>
+
+{% endblock %}

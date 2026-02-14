@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card card-custom">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">About LungAI Detector</h2>
+                    
+                    <div class="text-center mb-5">
+                        <i class="fas fa-lungs" style="font-size: 4rem; color: var(--orange);"></i>
+                    </div>
+                    
+                    <h4>Our Mission</h4>
+                    <p>
+                        LungAI Detector is an advanced artificial intelligence system designed to assist healthcare professionals 
+                        in the early detection of lung cancer from CT scan images. Our mission is to leverage cutting-edge AI 
+                        technology to improve diagnostic accuracy and save lives through early intervention.
+                    </p>
+                    
+                    <h4 class="mt-5">Technology</h4>
+                    <p>
+                        Our system utilizes a sophisticated fusion model that combines multiple deep learning architectures 
+                        for robust and accurate lung cancer detection. The key features of our technology include:
+                    </p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card card-custom h-100">
+                                <div class="card-body">
+                                    <h5><i class="fas fa-robot text-orange me-2"></i>AI Detection</h5>
+                                    <p>Advanced convolutional neural networks trained on thousands of annotated CT scans</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card card-custom h-100">
+                                <div class="card-body">
+                                    <h5><i class="fas fa-eye text-green me-2"></i>Explainable AI</h5>
+                                    <p>Grad-CAM and LIME visualizations to understand AI decision-making</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-5">Detection Classes</h4>
+                    <div class="row text-center mt-4">
+                        <div class="col-md-4">
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <span class="badge badge-normal prediction-badge mb-3">NORMAL</span>
+                                    <p>No signs of lung cancer detected</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <span class="badge badge-benign prediction-badge mb-3">BENIGN</span>
+                                    <p>Non-cancerous abnormalities detected</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <span class="badge badge-malignant prediction-badge mb-3">MALIGNANT</span>
+                                    <p>Potential cancerous growths detected</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-5">Medical Disclaimer</h4>
+                    <div class="alert alert-info">
+                        <p class="mb-0">
+                            <strong>Important:</strong> LungAI Detector is designed to assist healthcare professionals and 
+                            should not be used as a standalone diagnostic tool. All results should be interpreted by qualified 
+                            medical practitioners in the context of comprehensive patient evaluation. Early detection through 
+                            AI-assisted analysis can significantly improve outcomes, but final diagnosis and treatment decisions 
+                            must be made by licensed medical professionals.
+                        </p>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="{{ url_for('upload') }}" class="btn btn-custom btn-lg">
+                            <i class="fas fa-upload me-2"></i>Try Our System
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

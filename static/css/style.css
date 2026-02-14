@@ -1,0 +1,312 @@
+:root {
+    --dark-blue: #1a237e;
+    --medium-blue: #283593;
+    --light-blue: #303f9f;
+    --orange: #ff9800;
+    --green: #4caf50;
+    --light-green: #8bc34a;
+    --white: #ffffff;
+    --light-gray: #f5f5f5;
+    --dark-gray: #333333;
+}
+
+body {
+    background: linear-gradient(135deg, var(--dark-blue) 0%, var(--medium-blue) 100%);
+    color: var(--white);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.custom-navbar {
+    background: rgba(26, 35, 126, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-brand i {
+    color: var(--orange);
+    margin-right: 0.5rem;
+}
+
+.custom-footer {
+    background: rgba(26, 35, 126, 0.9);
+    color: var(--white);
+    padding: 2rem 0;
+    margin-top: auto;
+}
+
+.custom-footer a {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    color: var(--green);
+}
+
+.hero-section {
+    background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(40, 53, 147, 0.8)), 
+                url('/static/images/medical-bg.jpg') center/cover;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-custom {
+    background: linear-gradient(45deg, var(--orange), var(--green));
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    color: white;
+}
+
+.card-custom {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: var(--white);
+    transition: transform 0.3s ease;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+}
+
+.card-custom .card-title {
+    color: var(--orange);
+    font-weight: bold;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    color: var(--green);
+    margin-bottom: 1rem;
+}
+
+.dashboard-stats {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--orange);
+    display: block;
+}
+
+.stat-label {
+    color: var(--white);
+    font-size: 1rem;
+}
+
+.upload-area {
+    border: 3px dashed var(--orange);
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--green);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    color: var(--orange);
+    margin-bottom: 1rem;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.prediction-badge {
+    font-size: 1.2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+}
+
+.badge-normal {
+    background: var(--green);
+}
+
+.badge-benign {
+    background: var(--orange);
+}
+
+.badge-malignant {
+    background: #f44336;
+}
+
+.explanation-image {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+.login-container, .register-container {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 12px 15px;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--orange);
+    color: var(--white);
+    box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+}
+
+.form-label {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.history-table {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table {
+    color: var(--white);
+    margin-bottom: 0;
+}
+
+.table th {
+    background: var(--orange);
+    border: none;
+    color: var(--white);
+}
+
+.table td {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress {
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-top: 0.5rem;
+}
+
+.progress-bar {
+    background: linear-gradient(45deg, var(--orange), var(--green));
+}
+
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--green);
+}
+
+.alert-danger {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section p {
+        font-size: 1rem;
+    }
+    
+    .upload-area {
+        padding: 2rem 1rem;
+    }
+}
+/* Additional styles for theoretical explanations */
+.interpretation-guide {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.color-swatch {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-right: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.theory-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--orange);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.clinical-actions {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.clinical-actions h6 {
+    color: var(--orange);
+    margin-bottom: 15px;
+}

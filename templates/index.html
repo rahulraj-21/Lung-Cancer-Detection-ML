@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1>AI Lung Cancer Detection</h1>
+        <p class="lead">AI-powered early detection with explainable AI features for accurate diagnosis</p>
+        {% if not session.user_id %}
+        <a href="{{ url_for('register') }}" class="btn btn-custom btn-lg me-3">Get Started</a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline-light btn-lg">Learn More</a>
+        {% else %}
+        <a href="{{ url_for('upload') }}" class="btn btn-custom btn-lg me-3">Upload CT Scan</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg">View Dashboard</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row text-center mb-5">
+        <div class="col-md-8 mx-auto">
+            <h2>Why Choose Our System?</h2>
+            <p class="lead">Combining state-of-the-art AI with explainable AI techniques for trustworthy medical diagnosis</p>
+        </div>
+    </div>
+    
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card card-custom h-100 text-center p-4">
+                <i class="fas fa-brain feature-icon"></i>
+                <h4>AI-Powered Detection</h4>
+                <p>Advanced deep learning models trained on thousands of CT scans for accurate lung cancer detection.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-custom h-100 text-center p-4">
+                <i class="fas fa-search feature-icon"></i>
+                <h4>Explainable AI</h4>
+                <p>Grad-CAM and LIME visualizations help doctors understand the AI's decision-making process.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-custom h-100 text-center p-4">
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h4>Secure & Private</h4>
+                <p>Your medical data is protected with enterprise-grade security and privacy measures.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h3>How It Works</h3>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item card-custom mb-2">Upload your CT scan image</li>
+                <li class="list-group-item card-custom mb-2">AI analyzes the image in seconds</li>
+                <li class="list-group-item card-custom mb-2">Get instant results with confidence scores</li>
+                <li class="list-group-item card-custom">View AI explanations for abnormal cases</li>
+            </ol>
+        </div>
+        <div class="col-md-6 text-center">
+            <i class="fas fa-lungs" style="font-size: 15rem; color: var(--orange); opacity: 0.7;"></i>
+        </div>
+    </div>
+</div>
+{% endblock %}

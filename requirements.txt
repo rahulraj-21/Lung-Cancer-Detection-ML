@@ -1,0 +1,10 @@
+Flask==2.3.3
+Werkzeug==2.3.7
+tensorflow==2.13.0
+opencv-python==4.8.1.78
+numpy==1.24.3
+joblib==1.3.2
+lime==0.2.0.1
+matplotlib==3.7.2
+scikit-image==0.21.0
+Pillow==10.0.0
