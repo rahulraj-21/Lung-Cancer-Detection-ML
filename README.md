@@ -28,7 +28,7 @@ This project presents an AI-driven solution for early lung cancer detection usin
 2. Install dependencies:
 3. Run the application:
 
-## 📌 Note
+##  Note
 Due to GitHub size limitations, trained model weights are not included in the repository.
 ---
 Developed as part of an AI-based early lung cancer detection research project.
