@@ -1,44 +1,35 @@
-# Lung Cancer Detection using Machine Learning & Computer Vision
+# Multimodal Lung Cancer Detection using Machine Learning
 
-## Project Overview
-This project focuses on early lung cancer detection using deep learning techniques applied to lung CT scan images. The system classifies images as Benign or Malignant using a trained CNN-based fusion model.
+This project presents an AI-driven solution for early lung cancer detection using CT scan imaging data and machine learning techniques.
 
-## Features
-- Image-based lung cancer prediction
-- Deep Learning based classification
-- Accuracy & Loss Visualization
-- Confusion Matrix Evaluation
-- Flask-based Web Interface
+##  Features
+- Image preprocessing using OpenCV
+- CNN-based deep learning model for classification
+- Prediction of Malignant vs Benign lung nodules
+- Web-based interface using Flask
+- Model Explainability using LIME
+- Performance Evaluation using Accuracy, Loss, Confusion Matrix
 
-## Technologies Used
+##  Tech Stack
 - Python
 - TensorFlow / Keras
 - OpenCV
 - Flask
-- NumPy, Pandas
-- HTML/CSS (Frontend)
+- NumPy, Pandas, Matplotlib
+- LIME (Explainable AI)
 
-## Project Structure
-lung-cancer-detection/
-│── app.py  
-│── training.py  
-│── testing.py  
-│── requirements.txt  
-│── templates/  
-│── static/  
-│── models/  
+##  Model Performance
+- Achieved high accuracy in detecting lung cancer nodules from CT images
+- Confusion matrix and training loss/accuracy visualizations included
 
-## How to Run
-1. Install dependencies:
-pip install -r requirements.txt
+##  How to Run
+1. Clone the repository:
+   git clone https://github.com/rahulraj-21/Lung-Cancer-Detection-ML.git
+2. Install dependencies:
+3. Run the application:
 
-2. Run application:
-python app.py
+## 📌 Note
+Due to GitHub size limitations, trained model weights are not included in the repository.
+---
+Developed as part of an AI-based early lung cancer detection research project.
 
-## Dataset
-Publicly available lung CT scan dataset used for training.
-
-## Output
-Model predicts whether the input CT image is:
-- Benign
-- Malignant
